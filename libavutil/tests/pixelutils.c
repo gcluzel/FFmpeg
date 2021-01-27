@@ -18,10 +18,17 @@
 
 #include "libavutil/pixelutils.c"
 
+#ifndef TIS_INTERPRETER
 #define W1 320
 #define H1 240
 #define W2 640
 #define H2 480
+#else
+#define W1 32
+#define H1 24
+#define W2 64
+#define H2 48
+#endif
 
 static int run_single_test(const char *test,
                            const uint8_t *block1, ptrdiff_t stride1,

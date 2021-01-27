@@ -36,8 +36,13 @@
 
 #undef printf
 
+#ifdef TIS_INTERPRETER
+#define WIDTH 16
+#define HEIGHT 16
+#else
 #define WIDTH 64
 #define HEIGHT 64
+#endif
 
 static uint8_t img1[WIDTH * HEIGHT];
 static uint8_t img2[WIDTH * HEIGHT];

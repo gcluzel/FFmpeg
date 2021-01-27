@@ -52,23 +52,31 @@ int main(void){
     }
     printf("test1 sf    =%d\n", av_sf2int(sf1, 24));
 
+#ifdef TIS_INTERPRETER
+#define TEST2_ITS1 10
+#define TEST2_ITS2 10
+#else
+#define TEST2_ITS1 100
+#define TEST2_ITS2 1000
+#endif
 
-    for(i= 0; i<100; i++){
+
+    for(i= 0; i<TEST2_ITS1; i++){
         START_TIMER
         d1= i;
         d2= i/100.0;
-        for(j= 0; j<1000; j++){
+        for(j= 0; j<TEST2_ITS2; j++){
             d1= (d1+1)*d2;
         }
         STOP_TIMER("float add mul")
     }
     printf("test2 double=%d\n", (int)(d1 * (1<<24)));
 
-    for(i= 0; i<100; i++){
+    for(i= 0; i<TEST2_ITS1; i++){
         START_TIMER
         sf1= av_int2sf(i, 0);
         sf2= av_div_sf(av_int2sf(i, 2), av_int2sf(200, 3));
-        for(j= 0; j<1000; j++){
+        for(j= 0; j<TEST2_ITS2; j++){
             sf1= av_mul_sf(av_add_sf(sf1, one),sf2);
         }
         STOP_TIMER("softfloat add mul")

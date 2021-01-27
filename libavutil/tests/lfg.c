@@ -20,6 +20,14 @@
 #include "libavutil/timer.h"
 #include "libavutil/lfg.h"
 
+#ifdef TIS_INTERPRETER
+#define TOT_SAMP 10
+#define TOT_ITS 1
+#else
+#define TOT_SAMP 1000
+#define TOT_ITS 10000
+#endif
+
 static const double Z_TABLE[31][10] = {
     {0.5000,  0.5040,  0.5080,  0.5120,  0.5160,  0.5199,  0.5239,  0.5279,  0.5319,  0.5359},
     {0.5398,  0.5438,  0.5478,  0.5517,  0.5557,  0.5596,  0.5636,  0.5675,  0.5714,  0.5753},
@@ -105,7 +113,7 @@ int main(void)
     int i, j;
     AVLFG state;
     av_lfg_init(&state, 0xdeadbeef);
-    for (j = 0; j < 10000; j++) {
+    for (j = 0; j < TOT_ITS; j++) {
         for (i = 0; i < 624; i++) {
             //av_log(NULL, AV_LOG_ERROR, "%X\n", av_lfg_get(&state));
             x += av_lfg_get(&state);
@@ -118,7 +126,7 @@ int main(void)
         double mean   = 1000;
         double stddev = 53;
         double samp_mean = 0.0, samp_stddev = 0.0, QH = 0;
-        double Z, p_value = -1, tot_samp = 1000;
+        double Z, p_value = -1, tot_samp = TOT_SAMP;
         double *PRN_arr = av_malloc_array(tot_samp, sizeof(double));
 
         if (!PRN_arr) {

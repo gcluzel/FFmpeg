@@ -24,6 +24,12 @@
 #include "libavutil/lfg.h"
 #include "libavutil/log.h"
 
+#ifndef TIS_INTERPRETER
+#define NB_ITS 10000
+#else
+#define NB_ITS 100
+#endif
+
 static int check(AVTreeNode *t)
 {
     if (t) {
@@ -71,7 +77,7 @@ int main(int argc, char **argv)
 
     av_lfg_init(&prng, 1);
 
-    for (i = 0; i < 10000; i++) {
+    for (i = 0; i < NB_ITS; i++) {
         intptr_t j = av_lfg_get(&prng) % 86294;
 
         if (check(root) > 999) {

@@ -24,7 +24,13 @@
 
 #include "libavutil/lfg.h"
 
+#ifndef TIS_INTERPRETER
 #define MAX_W 256
+#define MAX_ITS 100
+#else
+#define MAX_W 32
+#define MAX_ITS 2
+#endif
 
 static int test_dwt(int *array, int *ref, int border[2][2], int decomp_levels, int type, int max_diff) {
     int ret, j;
@@ -119,7 +125,7 @@ int main(void) {
     for (i = 0; i<MAX_W * MAX_W; i++)
         arrayf[i] = reff[i] = array[i] = ref[i] =  av_lfg_get(&prng) % 2048;
 
-    for (i = 0; i < 100; i++) {
+    for (i = 0; i < MAX_ITS; i++) {
         for (j=0; j<4; j++)
             border[j>>1][j&1] = av_lfg_get(&prng) % MAX_W;
         if (border[0][0] >= border[0][1] || border[1][0] >= border[1][1])

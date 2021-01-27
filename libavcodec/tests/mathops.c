@@ -20,11 +20,17 @@
 
 #include <stdlib.h>
 
+#ifdef TIS_INTERPRETER
+#define MAX_ITS 1000
+#else
+#define MAX_ITS 65536
+#endif
+
 int main(void)
 {
     unsigned u;
 
-    for(u=0; u<65536; u++) {
+    for(u=0; u<MAX_ITS; u++) {
         unsigned s = u*u;
         unsigned root = ff_sqrt(s);
         unsigned root_m1 = ff_sqrt(s-1);

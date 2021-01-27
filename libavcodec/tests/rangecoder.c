@@ -24,7 +24,13 @@
 
 #include "libavcodec/rangecoder.h"
 
+#ifdef TIS_INTERPRETER
+#define SIZE 123
+#define MAX_ITS 10
+#else
 #define SIZE 1240
+#define MAX_ITS 1024
+#endif
 
 /**
  * Check if at the current position there is a valid looking termination
@@ -63,7 +69,7 @@ int main(void)
 
     av_lfg_init(&prng, 1);
     for (version = 0; version < 2; version++) {
-        for (p = 0; p< 1024; p++) {
+        for (p = 0; p< MAX_ITS; p++) {
             ff_init_range_encoder(&c, b, SIZE);
             ff_build_rac_states(&c, (1LL << 32) / 20, 128 + 64 + 32 + 16);
 

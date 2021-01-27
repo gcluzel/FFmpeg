@@ -127,7 +127,7 @@
 #endif
 #endif
 
-#if defined(__GNUC__) || defined(__clang__)
+#if (defined(__GNUC__) || defined(__clang__)) && !defined(TIS_INTERPRETER)
 #    define av_unused __attribute__((unused))
 #else
 #    define av_unused

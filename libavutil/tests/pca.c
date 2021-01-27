@@ -26,6 +26,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef TIS_INTERPRETER
+#define TOT_ITS 10
+#else
+#define TOT_ITS 9000000
+#endif
+
 int main(void){
     PCA *pca;
     int i, j, k;
@@ -38,7 +44,7 @@ int main(void){
 
     pca= ff_pca_init(LEN);
 
-    for(i=0; i<9000000; i++){
+    for(i=0; i<TOT_ITS; i++){
         double v[2*LEN+100];
         double sum=0;
         int pos = av_lfg_get(&prng) % LEN;

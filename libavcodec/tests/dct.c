@@ -110,8 +110,13 @@ static const struct algo idct_tab_arch[] = { { 0 } };
 
 #define AANSCALE_BITS 12
 
+#ifndef TIS_INTERPRETER
 #define NB_ITS 20000
 #define NB_ITS_SPEED 50000
+#else
+#define NB_ITS 20
+#define NB_ITS_SPEED 50
+#endif
 
 DECLARE_ALIGNED(16, static int16_t, block)[64];
 DECLARE_ALIGNED(8,  static int16_t, block1)[64];
