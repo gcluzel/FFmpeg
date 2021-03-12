@@ -274,7 +274,7 @@ int av_parse_cpu_caps(unsigned *flags, const char *s)
 
 int av_cpu_count(void)
 {
-    static volatile int printed;
+    static int printed;
 
     int nb_cpus = 1;
 #if HAVE_WINRT
@@ -305,7 +305,7 @@ int av_cpu_count(void)
     GetNativeSystemInfo(&sysinfo);
     nb_cpus = sysinfo.dwNumberOfProcessors;
 #endif
-
+    printed = 0;
     if (!printed) {
         av_log(NULL, AV_LOG_DEBUG, "detected %d logical cores\n", nb_cpus);
         printed = 1;

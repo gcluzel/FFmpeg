@@ -4,6 +4,7 @@
 #include <math.h>
 #include <stdint.h>
 #include <float.h>
+#include <unistd.h>
 
 int isatty(int fd)
 {
@@ -191,4 +192,13 @@ int __builtin_ctzll(long long unsigned x) {
   if ((x & 0x000000000000000F) == 0) {n = n + 4; x = x >> 4;}
   if ((x & 0x0000000000000003) == 0) {n = n + 2; x = x >> 2;}
   return n - (x & 1);
+}
+
+//@ ensures sysconf_OK: \result != -1;
+long sysconf(int name) {
+  if (name == _SC_NPROCESSORS_CONF)
+    return 10;
+  else if (name == _SC_NPROCESSORS_ONLN)
+    return 10;
+  return -1;
 }

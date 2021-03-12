@@ -28,7 +28,11 @@
 #include "libavcodec/golomb.h"
 #include "libavcodec/put_bits.h"
 
+#ifdef TIS_INTERPRETER
+#define COUNT 103
+#else
 #define COUNT 8191
+#endif
 #define SIZE (COUNT * 4)
 
 int main(void)

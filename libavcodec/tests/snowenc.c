@@ -28,8 +28,13 @@
 #include "libavutil/mathematics.h"
 
 int main(void){
+#ifndef TIS_INTERPRETER
 #define width  256
 #define height 256
+#else
+#define width  16
+#define height 16
+#endif
     int buffer[2][width*height];
     SnowContext s;
     int i;
